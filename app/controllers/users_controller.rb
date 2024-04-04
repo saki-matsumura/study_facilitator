@@ -67,4 +67,15 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:name, :attendance, :generation, :note)
     end
+
+    # 翌日出席可能なユーザー（attendanceがtrue）を配列化
+    def attend
+      User.where(attendance: true)
+    end
+
+    # ファシリテーターを選択する
+    def facilitator_select
+      @facilitator = attend.sample
+    end
+
 end
