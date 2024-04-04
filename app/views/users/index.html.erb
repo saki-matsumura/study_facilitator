@@ -2,6 +2,11 @@
 
 <h1>Users</h1>
 
+<!-- ファシリテーター選択システム -->
+<p>本日の当番は<%= @facilitator %><p>
+
+<%= link_to '当番', users_path(facilitator_select: "true") %>
+
 <table>
   <thead>
     <tr>

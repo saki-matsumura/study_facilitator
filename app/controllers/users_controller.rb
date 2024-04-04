@@ -4,6 +4,11 @@ class UsersController < ApplicationController
   # GET /users or /users.json
   def index
     @users = User.all
+    @facilitator = "誰でしょう"
+
+    if params[:facilitator_select]
+      @facilitator = "#{attend.sample.name.to_s}さんです"
+    end
   end
 
   # GET /users/1 or /users/1.json
@@ -73,7 +78,7 @@ class UsersController < ApplicationController
       User.where(attendance: true)
     end
 
-    # ファシリテーターを選択する
+    # ファシリテーターをランダムに選択する
     def facilitator_select
       @facilitator = attend.sample
     end
