@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
-    @users = User.all.target.generation
+    @users = User.all.target.generation.name_sort
     @facilitator = "……？"
     if params[:facilitator_select]
       if target_list.size.zero?

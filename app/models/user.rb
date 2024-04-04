@@ -5,4 +5,5 @@ class User < ApplicationRecord
   # ソート
   scope :target, -> { order(target: :desc) }
   scope :generation, -> { order(generation: :desc) }
+  scope :name_sort, -> { order(name: :asc) }
 end
