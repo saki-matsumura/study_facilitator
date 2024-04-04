@@ -4,10 +4,10 @@ class UsersController < ApplicationController
   # GET /users or /users.json
   def index
     @users = User.all
-    @facilitator = "誰でしょう"
+    @facilitator = "……？"
 
     if params[:facilitator_select]
-      @facilitator = "#{attend.sample.name.to_s}さんです"
+      @facilitator = "#{attend.sample.name.to_s}さんです！"
     end
   end
 
@@ -42,7 +42,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1 or /users/1.json
   def update
     respond_to do |format|
-      if params[:attendance_change]
+      if params[:target_change]
         update_attend(@user)
         return
       end
@@ -74,12 +74,12 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:name, :attendance, :generation, :note)
+      params.require(:user).permit(:name, :target, :generation, :note)
     end
 
-    # 翌日出席可能なユーザー（attendanceがtrue）を配列化
+    # 翌日出席可能なユーザー（targetがtrue）を配列化
     def attend
-      User.where(attendance: true)
+      User.where(target: true)
     end
 
     # ファシリテーターをランダムに選択する
@@ -89,14 +89,14 @@ class UsersController < ApplicationController
 
     # 出欠の切り替え
     def update_attend(user)
-      if user.attendance
-        user.update(attendance: false)
+      if user.target
+        user.update(target: false)
       else
-        user.update(attendance: true)
+        user.update(target: true)
       end
       
       respond_to do |format|
-        format.js { render 'users/attendance' }
+        format.js { render 'users/target' }
       end
     end
 end

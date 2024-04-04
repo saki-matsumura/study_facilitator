@@ -1,6 +1,8 @@
-<h1>Editing User</h1>
+<h3><%= t('.title') %></h3>
 
 <%= render 'form', user: @user %>
 
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>
+<div class = "text-secondary" >
+  <%= link_to t('common.show'), @user, class: "text-secondary" %> |
+  <%= link_to t('common.back'), users_path, class: "text-secondary" %>
+</div>

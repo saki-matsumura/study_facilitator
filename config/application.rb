@@ -10,6 +10,10 @@ module Facilitator
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
+    # I18nライブラリに訳文の探索場所を指示する
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
+    # ロケールを:en以外に変更する
+    config.i18n.default_locale = :ja
 
     config.generators do |g|
       g.assets false

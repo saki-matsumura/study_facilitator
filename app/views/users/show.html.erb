@@ -1,24 +1,26 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong><%= t('activerecord.attributes.user.name')%>:</strong>
   <%= @user.name %>
 </p>
 
 <p>
-  <strong>Attendance:</strong>
-  <%= @user.attendance %>
+  <strong><%= t('activerecord.attributes.user.target') %>:</strong>
+  <%= @user.target %>
 </p>
 
 <p>
-  <strong>Generation:</strong>
+  <strong><%= t('activerecord.attributes.user.generation') %>:</strong>
   <%= @user.generation %>
 </p>
 
 <p>
-  <strong>Note:</strong>
+  <strong><%= t('activerecord.attributes.user.note')%>:</strong>
   <%= @user.note %>
 </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<div class = "text-secondary" >
+  <%= link_to t('common.edit'), edit_user_path(@user), class: "text-secondary" %> |
+  <%= link_to t('common.back'), users_path, class: "text-secondary" %>
+</div>
