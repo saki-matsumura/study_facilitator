@@ -42,6 +42,10 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1 or /users/1.json
   def update
     respond_to do |format|
+      if params[:attendance_change]
+        update_attend(@user)
+        return
+      end
       if @user.update(user_params)
         format.html { redirect_to user_url(@user), notice: "User was successfully updated." }
         format.json { render :show, status: :ok, location: @user }
@@ -83,4 +87,16 @@ class UsersController < ApplicationController
       @facilitator = attend.sample
     end
 
+    # 出欠の切り替え
+    def update_attend(user)
+      if user.attendance
+        user.update(attendance: false)
+      else
+        user.update(attendance: true)
+      end
+      
+      respond_to do |format|
+        format.js { render 'users/attendance' }
+      end
+    end
 end
