@@ -3,11 +3,14 @@ class UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
-    @users = User.all
+    @users = User.all.target.generation
     @facilitator = "……？"
-
     if params[:facilitator_select]
-      @facilitator = "#{attend.sample.name.to_s}さんです！"
+      if target_list.size.zero?
+        flash.now[:danger] = '選出対象を1人以上選んでください。'
+      else
+        @facilitator = "#{target_list.sample.name.to_s}さんです！"
+      end
     end
   end
 
@@ -78,13 +81,8 @@ class UsersController < ApplicationController
     end
 
     # 翌日出席可能なユーザー（targetがtrue）を配列化
-    def attend
+    def target_list
       User.where(target: true)
-    end
-
-    # ファシリテーターをランダムに選択する
-    def facilitator_select
-      @facilitator = attend.sample
     end
 
     # 出欠の切り替え
